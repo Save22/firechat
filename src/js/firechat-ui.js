@@ -14,7 +14,7 @@
     throw new Error("Unable to find chat templates!");
   }
 
-  function FirechatUI(firebaseRef, el, options) {
+  function FirechatUI(firebaseRef, el, options, roomIdList) {
     var self = this;
 
     if (!firebaseRef) {
@@ -31,6 +31,7 @@
     this._el = el;
     this._user = null;
     this._chat = new Firechat(firebaseRef, options);
+    this._roomIdList = roomIdList;
 
     // A list of rooms to enter once we've made room for them (once we've hit the max room limit).
     this._roomQueue = [];
@@ -404,11 +405,15 @@
         self.$roomList.empty();
         for (var roomId in rooms) {
           var room = rooms[roomId];
-          if (room.type != "public") continue;
-          room.isRoomOpen = !!self.$messages[room.id];
-          var $roomItem = $(template(room));
-          $roomItem.children('a').bind('click', selectRoomListItem);
-          self.$roomList.append($roomItem.toggle(true));
+
+          if (self._roomIdList.indexOf(roomId) === -1) {
+            continue;
+          } else {
+            room.isRoomOpen = !!self.$messages[room.id];
+            var $roomItem = $(template(room));
+            $roomItem.children('a').bind('click', selectRoomListItem);
+            self.$roomList.append($roomItem.toggle(true));
+          }
         }
       });
     });
