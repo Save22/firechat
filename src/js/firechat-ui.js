@@ -90,6 +90,7 @@
       this._bindForUserMuting();
       this._bindForChatInvites();
       this._bindForRoomListing();
+      this._bindForSupportChat();
 
       // Generic, non-chat-specific interactive elements.
       this._setupTabs();
@@ -386,20 +387,21 @@
         return;
       }
 
-      var $this = $(this),
-          template = FirechatDefaultTemplates["templates/room-list-item.html"],
-          selectRoomListItem = function() {
-            var parent = $(this).parent(),
-                roomId = parent.data('room-id'),
-                roomName = parent.data('room-name');
+      var $this = $(this);
+      var template = FirechatDefaultTemplates["templates/room-list-item.html"];
 
-            if (self.$messages[roomId]) {
-              self.focusTab(roomId);
-            } else {
-              self._chat.enterRoom(roomId, roomName);
-            }
-            return false;
-          };
+      var selectRoomListItem = function() {
+        var parent = $(this).parent();
+        var roomId = parent.data('room-id');
+        var roomName = parent.data('room-name');
+
+        if (self.$messages[roomId]) {
+          self.focusTab(roomId);
+        } else {
+          self._chat.enterRoom(roomId, roomName);
+        }
+        return false;
+      };
 
       self._chat.getRoomList(function(rooms) {
         self.$roomList.empty();
@@ -882,9 +884,21 @@
       return;
     }
 
+    var customName = '';
+
+    // if (roomName.indexOf('Briefing - Project') !== -1) {
+    //   customName = 'Briefing';
+    // } else if (roomName.indexOf('Opportunity - Project') !== -1) {
+    //   customName = 'Opportunity';
+    if (roomName === 'communiteersupportgroup') {
+      customName = 'Official Support Group';
+    } else if (roomName === 'Official Support Group') {
+      customName = 'Fake Support Group';
+    }
+
     var room = {
       id: roomId,
-      name: roomName
+      name: customName || roomName
     };
 
     // Populate and render the tab content template.
@@ -1152,6 +1166,23 @@
     return str
       .replace(self.urlPattern, '<a target="_blank" href="$&">$&</a>')
       .replace(self.pseudoUrlPattern, '$1<a target="_blank" href="http://$2">$2</a>');
+  };
+
+
+  FirechatUI.prototype._bindForSupportChat = function() {
+    var self = this;
+
+    $('#communiteer-support-btn').bind('click', function() {
+      var roomId = $(this).data('room-id');
+
+      if (self.$messages[roomId]) {
+        self.focusTab(roomId);
+      } else {
+        self._chat.enterRoom(roomId);
+      }
+
+      return false;
+    });
   };
 
 })(jQuery);
