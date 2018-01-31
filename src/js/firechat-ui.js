@@ -14,7 +14,7 @@
     throw new Error("Unable to find chat templates!");
   }
 
-  function FirechatUI(firebaseRef, el, options, roomIdList) {
+  function FirechatUI(firebaseRef, el, options, roomIdList, supportRoomId) {
     var self = this;
 
     if (!firebaseRef) {
@@ -32,6 +32,7 @@
     this._user = null;
     this._chat = new Firechat(firebaseRef, options);
     this._roomIdList = roomIdList;
+    this._supportRoomId = supportRoomId;
 
     // A list of rooms to enter once we've made room for them (once we've hit the max room limit).
     this._roomQueue = [];
@@ -1176,7 +1177,7 @@
     var self = this;
 
     $('#communiteer-support-btn').bind('click', function() {
-      var roomId = $(this).data('room-id');
+      var roomId = self._supportRoomId;
 
       if (self.$messages[roomId]) {
         self.focusTab(roomId);
@@ -1186,6 +1187,26 @@
 
       return false;
     });
+
+    self._enterEntityRooms();
+  };
+
+  FirechatUI.prototype._enterEntityRooms = function() {
+    if (self.$messages[self._supportRoomId]) {
+      self.focusTab(self._supportRoomId);
+    } else {
+      self._chat.enterRoom(self._supportRoomId);
+    }
+
+    if (self._roomIdList && self._roomIdList.length) {
+      self._roomIdList.forEach(function (roomId) {
+        if (self.$messages[roomId]) {
+          self.focusTab(roomId);
+        } else {
+          self._chat.enterRoom(roomId);
+        }
+      });
+    }
   };
 
 })(jQuery);
