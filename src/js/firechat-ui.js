@@ -998,6 +998,9 @@
   FirechatUI.prototype.showMessage = function(roomId, rawMessage) {
     var self = this;
 
+    // Add classname to message depending
+    // if the user is admin or not
+
     // Setup defaults
     var message = {
       id              : rawMessage.id,
