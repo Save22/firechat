@@ -31,6 +31,8 @@
     this._el = el;
     this._user = null;
     this._chat = new Firechat(firebaseRef, options);
+
+    // COMMUNITEER TAG
     this._roomIdList = roomIdList;
     this._supportRoomId = supportRoomId;
 
@@ -244,7 +246,9 @@
         self._bindSuperuserUIEvents();
       }
 
-      self._chat.resumeSession();
+      // COMMUNITEER TAG
+      // Disable session restore
+      // self._chat.resumeSession();
     });
   };
 
@@ -409,6 +413,7 @@
         for (var roomId in rooms) {
           var room = rooms[roomId];
 
+          // COMMUNITEER TAG
           if (self._roomIdList.indexOf(roomId) === -1) {
             continue;
           } else {
@@ -885,13 +890,10 @@
       return;
     }
 
+    // COMMUNITEER TAG
     var customName = '';
 
-    // if (roomName.indexOf('Briefing - Project') !== -1) {
-    //   customName = 'Briefing';
-    // } else if (roomName.indexOf('Opportunity - Project') !== -1) {
-    //   customName = 'Opportunity';
-    if (roomName === 'communiteersupportgroup') {
+    if (roomName === 'communiteersupportgroup2017') {
       customName = 'Official Support Group';
     } else if (roomName === 'Official Support Group') {
       customName = 'Fake Support Group';
@@ -1173,6 +1175,12 @@
   };
 
 
+  /**
+   *
+   * COMMUNITEER SPECIFIC CODE SECTION
+   *
+   */
+
   FirechatUI.prototype._bindForSupportChat = function() {
     var self = this;
 
@@ -1192,10 +1200,13 @@
   };
 
   FirechatUI.prototype._enterEntityRooms = function() {
-    if (self.$messages[self._supportRoomId]) {
-      self.focusTab(self._supportRoomId);
+    var self = this;
+    var supportRoomId = self._supportRoomId;
+
+    if (self.$messages[supportRoomId]) {
+      self.focusTab(supportRoomId);
     } else {
-      self._chat.enterRoom(self._supportRoomId);
+      self._chat.enterRoom(supportRoomId);
     }
 
     if (self._roomIdList && self._roomIdList.length) {
