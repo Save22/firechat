@@ -14,7 +14,7 @@
     throw new Error("Unable to find chat templates!");
   }
 
-  function FirechatUI(firebaseRef, el, options) {
+  function FirechatUI(firebaseRef, el, options, supportRoomId) {
     var self = this;
 
     if (!firebaseRef) {
@@ -31,6 +31,7 @@
     this._el = el;
     this._user = null;
     this._chat = new Firechat(firebaseRef, options);
+    this._supportRoomId = supportRoomId;
 
     // A list of rooms to enter once we've made room for them (once we've hit the max room limit).
     this._roomQueue = [];
@@ -89,6 +90,7 @@
       this._bindForUserMuting();
       this._bindForChatInvites();
       this._bindForRoomListing();
+      this._bindForSupportChat();
 
       // Generic, non-chat-specific interactive elements.
       this._setupTabs();
@@ -877,9 +879,18 @@
       return;
     }
 
+    // COMMUNITEER TAG
+    var customName = '';
+
+    if (roomName === 'communiteersupportgroup2017') {
+      customName = 'Official Support Group';
+    } else if (roomName === 'Official Support Group') {
+      customName = 'Fake Support Group';
+    }
+
     var room = {
       id: roomId,
-      name: roomName
+      name: customName || roomName
     };
 
     // Populate and render the tab content template.
@@ -1148,5 +1159,41 @@
       .replace(self.urlPattern, '<a target="_blank" href="$&">$&</a>')
       .replace(self.pseudoUrlPattern, '$1<a target="_blank" href="http://$2">$2</a>');
   };
+
+  /**
+   *
+   * COMMUNITEER SPECIFIC CODE
+   *
+   */
+
+  FirechatUI.prototype._bindForSupportChat = function() {
+    var self = this;
+
+    $('#communiteer-support-btn').bind('click', function() {
+      var roomId = self._supportRoomId;
+
+      if (self.$messages[roomId]) {
+        self.focusTab(roomId);
+      } else {
+        self._chat.enterRoom(roomId);
+      }
+
+      return false;
+    });
+
+    self._enterSupportRoom();
+  };
+
+  FirechatUI.prototype._enterSupportRoom = function() {
+    var self = this;
+    var supportRoomId = self._supportRoomId;
+
+    if (self.$messages[supportRoomId]) {
+      self.focusTab(supportRoomId);
+    } else {
+      self._chat.enterRoom(supportRoomId);
+    }
+  };
+
 
 })(jQuery);
