@@ -883,9 +883,9 @@
     var customName = '';
 
     if (roomName === 'communiteersupportgroup2017') {
-      customName = 'Official Support Group';
-    } else if (roomName === 'Official Support Group') {
-      customName = 'Fake Support Group';
+      customName = 'Official Support';
+    } else if (roomName === 'Official Support') {
+      customName = 'Fake Support';
     }
 
     var room = {
