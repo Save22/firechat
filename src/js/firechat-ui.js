@@ -93,7 +93,7 @@
       this._bindForUserMuting();
       this._bindForChatInvites();
       this._bindForRoomListing();
-      this._bindForSupportChat();
+      this._enterEntityRooms();
 
       // Generic, non-chat-specific interactive elements.
       this._setupTabs();
@@ -1180,24 +1180,6 @@
    * COMMUNITEER SPECIFIC CODE SECTION
    *
    */
-
-  FirechatUI.prototype._bindForSupportChat = function() {
-    var self = this;
-
-    $('#communiteer-support-btn').bind('click', function() {
-      var roomId = self._supportRoomId;
-
-      if (self.$messages[roomId]) {
-        self.focusTab(roomId);
-      } else {
-        self._chat.enterRoom(roomId);
-      }
-
-      return false;
-    });
-
-    self._enterEntityRooms();
-  };
 
   FirechatUI.prototype._enterEntityRooms = function() {
     var self = this;
