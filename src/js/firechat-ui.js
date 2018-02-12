@@ -1218,9 +1218,6 @@
     var messageCount = chatMessage.length;
     var counterMessage = '(' + messageCount + '/' + self.maxLengthMessage + ')';
 
-    console.log(chatMessage);
-    console.log(counterMessage);
-
     labelElement.text(counterMessage);
   };
 
