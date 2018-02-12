@@ -904,8 +904,18 @@
 
     // Attach on-enter event to textarea.
     var $textarea = $tabContent.find('textarea').first();
+    var $counterLabel = $tabContent.find('label');
+
+    // COMMUNITEER TAG
+    // Added message counter
+    $textarea.bind('keyup', function(e) {
+      var message = $textarea.val();
+      self._bindForMessageLimitCounter($counterLabel, message);
+    });
+
     $textarea.bind('keydown', function(e) {
       var message = self.trimWithEllipsis($textarea.val(), self.maxLengthMessage);
+
       if ((e.which === 13) && (message !== '')) {
         $textarea.val('');
         self._chat.sendMessage(roomId, message);
@@ -1177,5 +1187,13 @@
     }
   };
 
+  FirechatUI.prototype._bindForMessageLimitCounter = function(labelElement, chatMessage) {
+    var self = this;
+
+    var messageCount = chatMessage.length;
+    var counterMessage = '(' + messageCount + '/' + self.maxLengthMessage + ')';
+
+    labelElement.text(counterMessage);
+  };
 
 })(jQuery);
