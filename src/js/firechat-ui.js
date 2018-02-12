@@ -904,7 +904,7 @@
 
     // Attach on-enter event to textarea.
     var $textarea = $tabContent.find('textarea').first();
-    var $counterLabel = $tabContent.find('label');
+    var $counterLabel = $tabContent.find('strong');
 
     // COMMUNITEER TAG
     // Added message counter
