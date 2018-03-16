@@ -1107,13 +1107,16 @@
    */
   FirechatUI.prototype.formatTime = function(timestamp) {
     var date = (timestamp) ? new Date(timestamp) : new Date(),
+        year = date.getFullYear(),
+        month = date.getMonth() + 1,
+        day = date.getDate(),
         hours = date.getHours() || 12,
         minutes = '' + date.getMinutes(),
         ampm = (date.getHours() >= 12) ? 'pm' : 'am';
 
     hours = (hours > 12) ? hours - 12 : hours;
     minutes = (minutes.length < 2) ? '0' + minutes : minutes;
-    return '' + hours + ':' + minutes + ampm;
+    return (year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ampm);
   };
 
   /**
