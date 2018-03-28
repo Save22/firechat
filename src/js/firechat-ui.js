@@ -1112,8 +1112,13 @@
         day = date.getDate(),
         hours = date.getHours() || 12,
         minutes = '' + date.getMinutes(),
+        seconds = date.getSeconds(),
         ampm = (date.getHours() >= 12) ? 'pm' : 'am';
 
+    // 2018-01-03 16:32:00
+    return (year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds);
+
+    /* Old format
     var monthWords = [
       'Jan', 'Feb', 'Mar',
       'Apr', 'May', 'Jun',
@@ -1125,7 +1130,9 @@
 
     hours = (hours > 12) ? hours - 12 : hours;
     minutes = (minutes.length < 2) ? '0' + minutes : minutes;
+    // 03 Jan, 2018 04:32pm
     return (day + ' ' + currentMonth + ', ' + year + ' ' + hours + ':' + minutes + ampm);
+    */
   };
 
   /**
