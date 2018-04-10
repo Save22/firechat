@@ -243,7 +243,9 @@
         self._bindSuperuserUIEvents();
       }
 
-      self._chat.resumeSession();
+      // COMMUNITEER TAG
+      // Disable session restore
+      // self._chat.resumeSession();
     });
   };
 
