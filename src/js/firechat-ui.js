@@ -1120,7 +1120,7 @@
         seconds = seconds.slice(-2);
 
     // 2018-01-03 16:32:00
-    return (year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds);
+    return (year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds + 'h');
 
     // COMMUNITEER TAG
     /* Old format
