@@ -1115,9 +1115,26 @@
         seconds = date.getSeconds(),
         ampm = (date.getHours() >= 12) ? 'pm' : 'am';
 
+        // Add leading zero
+        month = '0' + month;
+        month = month.slice(-2);
+
+        day = '0' + day;
+        day = day.slice(-2);
+
+        hours = '0' + hours;
+        hours = hours.slice(-2);
+
+        minutes = '0' + minutes;
+        minutes = minutes.slice(-2);
+
+        seconds = '0' + seconds;
+        seconds = seconds.slice(-2);
+
     // 2018-01-03 16:32:00
     return (year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds);
 
+    // COMMUNITEER TAG
     /* Old format
     var monthWords = [
       'Jan', 'Feb', 'Mar',
