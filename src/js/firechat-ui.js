@@ -1108,7 +1108,7 @@
   FirechatUI.prototype.formatTime = function(timestamp) {
     var date = (timestamp) ? new Date(timestamp) : new Date(),
         year = date.getFullYear(),
-        month = date.getMonth(),
+        month = date.getMonth() + 1,
         day = date.getDate(),
         hours = date.getHours() || 12,
         minutes = '' + date.getMinutes(),
