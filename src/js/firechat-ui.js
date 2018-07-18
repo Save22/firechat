@@ -14,7 +14,7 @@
     throw new Error("Unable to find chat templates!");
   }
 
-  function FirechatUI(firebaseRef, el, options, roomIdList, supportRoomId) {
+  function FirechatUI(firebaseRef, el, options, roomIdList) {
     var self = this;
 
     if (!firebaseRef) {
@@ -34,7 +34,6 @@
 
     // COMMUNITEER TAG
     this._roomIdList = roomIdList;
-    this._supportRoomId = supportRoomId;
 
     // A list of rooms to enter once we've made room for them (once we've hit the max room limit).
     this._roomQueue = [];
@@ -890,18 +889,9 @@
       return;
     }
 
-    // COMMUNITEER TAG
-    var customName = '';
-
-    if (roomName === 'communiteersupportgroup2017') {
-      customName = 'Official Support';
-    } else if (roomName === 'Official Support') {
-      customName = 'Fake Support';
-    }
-
     var room = {
       id: roomId,
-      name: customName || roomName
+      name: roomName
     };
 
     // Populate and render the tab content template.
@@ -1229,13 +1219,6 @@
 
   FirechatUI.prototype._enterEntityRooms = function() {
     var self = this;
-    var supportRoomId = self._supportRoomId;
-
-    if (self.$messages[supportRoomId]) {
-      self.focusTab(supportRoomId);
-    } else {
-      self._chat.enterRoom(supportRoomId);
-    }
 
     if (self._roomIdList && self._roomIdList.length) {
       self._roomIdList.forEach(function (roomId) {
