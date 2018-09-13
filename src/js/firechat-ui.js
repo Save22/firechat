@@ -925,31 +925,31 @@
     });
 
     // Populate and render the tab menu template.
-    var tabListTemplate = FirechatDefaultTemplates["templates/tab-menu-item.html"];
-    var $tab = $(tabListTemplate(room));
-    this.$tabList.prepend($tab);
+    // var tabListTemplate = FirechatDefaultTemplates["templates/tab-menu-item.html"];
+    // var $tab = $(tabListTemplate(room));
+    // this.$tabList.prepend($tab);
 
     // Attach on-shown event to move tab to front and scroll to bottom.
-    $tab.bind('shown', function(event) {
-      $messages.scrollTop($messages[0].scrollHeight);
-    });
+    // $tab.bind('shown', function(event) {
+    //   $messages.scrollTop($messages[0].scrollHeight);
+    // });
 
     // Dynamically update the width of each tab based upon the number open.
-    var tabs = this.$tabList.children('li');
-    var tabWidth = Math.floor($('#firechat-tab-list').width() / tabs.length);
+    // var tabs = this.$tabList.children('li');
+    // var tabWidth = Math.floor($('#firechat-tab-list').width() / tabs.length);
     // this.$tabList.children('li').css('width', tabWidth);
 
     // Update the room listing to reflect that we're now in the room.
-    this.$roomList.children('[data-room-id=' + roomId + ']').children('a').addClass('highlight');
+    // this.$roomList.children('[data-room-id=' + roomId + ']').children('a').addClass('highlight');
 
     // Sort each item in the user list alphabetically on click of the dropdown.
-    $('#firechat-btn-room-user-list-' + roomId).bind('click', function() {
-      self.sortListLexicographically('#firechat-room-user-list-' + roomId);
-      return false;
-    });
+    // $('#firechat-btn-room-user-list-' + roomId).bind('click', function() {
+    //   self.sortListLexicographically('#firechat-room-user-list-' + roomId);
+    //   return false;
+    // });
 
     // Automatically select the new tab.
-    this.focusTab(roomId);
+    // this.focusTab(roomId);
   };
 
   /**
